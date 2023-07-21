@@ -64,12 +64,14 @@ auto [a, b, c] = f();
 ```C++
 int a = 1;
 double b = 1;
-if (a == b) cout << "a 与 b 数值相同" << endl;
 //::value取出bool值
-if (is_same<decltype(a), decltype(b)>::value) cout << "a 与 b 类型相同" << endl;
+//或者直接使用is_same_v<T, U>就不用使用::value了
+if (a == b) cout << "a 与 b 数值相同" << endl;
+if (is_same<decltype(a), decltype(b)>::value) cout << "a 与 b 类型相同" << endl; 
 else cout << "a 与 b 类型不相同" << endl;
-//stdout:
-//a 与 b 数值相同
-//a 与 b 类型不相同
 ```
+
+### 7. 区间for循环
+
+### 8.
 
