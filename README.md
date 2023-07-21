@@ -447,3 +447,7 @@ int main() {
     return 0;
 }
 ```
+
+## 3.容器 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
+
+>   作为一名业余的算法爱好者，以上容器肯定是不离手的，这里稍微介绍一下array产生的原因，以及与vector的区别
