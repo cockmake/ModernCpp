@@ -50,11 +50,11 @@ tuple<int, double, string> f() {
 	return make_tuple(1, 2.3, "我是str");
 }
 auto [a, b, c] = f();
-	decltype(a) bb = 1.2;  //decltype 可以作为变量声明
-	cout << bb << endl; // bb == 1
-	cout << a << endl;
-	cout << b << endl;
-	cout << c << endl;
+decltype(a) bb = 1.2;  //decltype 可以作为变量声明
+cout << bb << endl; // bb == 1
+cout << a << endl;
+cout << b << endl;
+cout << c << endl;
 ```
 
 
@@ -181,19 +181,19 @@ enum class types: unsigned int {
 };
 int main(){
     unsigned int b = static_cast<unsigned int>(names::BB_001);
-	unsigned int c = static_cast<unsigned int>(names::CC_002);
-	unsigned int d = static_cast<unsigned int>(names::DD_003);
-	// if (names::BB_001 == types::TYPE_DOWN)  //编译不通过，不同的枚举空间不能进行比较
-	 if (names::BB_001 == names::CC_002)
-		cout << "相同" << endl;
-	cout << b << endl
-		<< c << endl
-		<< d << endl;
-	//stdout:
-	//相同
-	//100
-	//100
-	//101
+    unsigned int c = static_cast<unsigned int>(names::CC_002);
+    unsigned int d = static_cast<unsigned int>(names::DD_003);
+    // if (names::BB_001 == types::TYPE_DOWN)  //编译不通过，不同的枚举空间不能进行比较
+     if (names::BB_001 == names::CC_002)
+        cout << "相同" << endl;
+    cout << b << endl
+        << c << endl
+        << d << endl;
+    //stdout:
+    //相同
+    //100
+    //100
+    //101
     return 0;
 }
 ```
