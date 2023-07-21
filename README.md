@@ -16,7 +16,7 @@ constexpr int add(int a, int b) {
 }
 int main(){
     constexpr int len = add(A, B);
-	int arr[len];
+    int arr[len];
     return 0;
 }
 ```
