@@ -83,7 +83,7 @@ enum class types: unsigned int {
 	TYPE_DOWN = 100
 
 };
-int main() {
+int main1() {
 	/*
 	* 1. 使用nullptr来代替NULL
 	* 2. 使用static_cast<type>来替代(type)进行类型转换
