@@ -4,7 +4,7 @@
 
 ### 1. 使用nullptr来代替NULL
 
-### 2. 使用static_cast<type>来替代(type)进行类型转换
+### 2. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换
 
 ### 3. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr
 
