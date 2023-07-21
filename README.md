@@ -71,7 +71,132 @@ if (is_same<decltype(a), decltype(b)>::value) cout << "a 与 b 类型相同" << 
 else cout << "a 与 b 类型不相同" << endl;
 ```
 
-### 7. 区间for循环
+### 7. 区间（范围）for循环
 
-### 8.
+### 8.可变参数数量的模板函数，以及变参模板展开
+
+```C++
+class Person {
+public:
+	int p;
+	Person(int _p) {p = _p;}
+};
+void printf2() {} //要搭配一个没有参数的同名函数
+template<typename T0, typename... T>
+void printf2(T0 t0, T... t) {
+	//一般来讲含有可变参数的模板往往是类内函数
+	cout << t0.p << endl;
+	if (sizeof...(t) > 0) {
+        //注意sizeof...(args)和(args...)的用法
+		//(args...)可以理解为没有参数
+		//在执行期间会转到printf2(T0 t0, T... t)进行执行
+		printf2(t...);
+	}
+}
+int main(){
+    Person p1(1), p2(2), p3(3);
+	printf2(p1, p2, p3);
+    return 0;
+}
+```
+
+### 9.委托构造函数可以在同一个类中一个构造函数调用另一个构造函数，从而达到简化代码的目的
+
+```C++
+class Base {
+public:
+	int value, value2;
+	Base() : value(1), value2(value + 1) {};
+	Base(int v) : Base() {
+		value += v;
+		value2 += v;
+	}
+};
+int main(){
+    Base base(4);
+    cout << base.value << '\t' << endl
+        << base.value2 << endl;
+    //stdout:
+    //5
+    //6
+    return 0;
+}
+```
+
+
+
+### 10. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）
+
+```C++
+class ABase {
+public:
+	int num = 0;
+	// virtual int getNum() = 0;  //纯虚函数可以使得继承该类的子类强制实现该函数，否则无法得到实例化
+	//虚函数是用来是实现多态的
+	virtual void setNum(int _num) {
+		num = _num;
+	}
+	virtual int getNum() {
+		return num;
+	}
+};
+class BBase: public ABase {
+public:
+	void setNum(int _num) {
+		num = _num * 5;
+	}
+};
+class CBase : public ABase {
+public:
+	void setNum(int _num) {
+		num = _num * 10;
+	}
+};
+int main(){
+    ABase* bbase = new BBase();
+	ABase *cbase = new CBase();
+	cout << setAndGet(bbase, 10) << endl;
+	cout << setAndGet(cbase, 10) << endl;
+	//stdout:
+	//50
+	//100
+    return 0;
+}
+```
+
+### 11.强枚举类
+
+```C++
+#include<iostream>
+using namespace std;
+enum class names : unsigned int {
+	AA_000,
+	BB_001 = 100,
+	CC_002 = 100,
+	DD_003
+};
+enum class types: unsigned int {
+	TYPE_DOWN = 100
+
+};
+int main(){
+    unsigned int b = static_cast<unsigned int>(names::BB_001);
+	unsigned int c = static_cast<unsigned int>(names::CC_002);
+	unsigned int d = static_cast<unsigned int>(names::DD_003);
+	// if (names::BB_001 == types::TYPE_DOWN)  //编译不通过，不同的枚举空间不能进行比较
+	 if (names::BB_001 == names::CC_002)
+		cout << "相同" << endl;
+	cout << b << endl
+		<< c << endl
+		<< d << endl;
+	//stdout:
+	//相同
+	//100
+	//100
+	//101
+    return 0;
+}
+```
+
+## Chapter2
 
