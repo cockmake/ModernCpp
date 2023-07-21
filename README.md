@@ -215,4 +215,34 @@ int main(){
 
 ## Chapter2
 
-### 1.
+### 1.泛型 Lambda即lambda函数支持auto形参
+
+```C++
+auto add = [](auto x, auto y) {
+    return x + y;
+};
+auto a = add(1, 2.1);
+cout << a << endl;
+//stdout:
+//3.1(float)
+```
+
+### 2.std::bind 和 std::placeholder 函数绑定与参数占位
+
+```c++
+#include<functional>
+using namespace std;
+int getArgs(int a, int b, int c) {
+	cout << a << '\t' << b << '\t' << c << endl;
+	return 0;
+}
+int main(){
+	auto execFunc = bind(getArgs, placeholders::_2, placeholders::_1, 100);
+	execFunc(1, 3);
+    //stdout:
+    //3 1 100
+	return 0;
+}
+```
+
+### 3.
