@@ -846,6 +846,8 @@ if (os::exists("D:\\def")) {
 
 ### 4.遍历路径与递归遍历 os::recursive_directory_entry 和 directory_entry
 
+>   C++20中支持stirng::ends_with和starts_with
+
 ```C++
 //遍历当前文件夹下的所有文件和文件夹，不递归遍历。
 os::path target_path = "D:\\abc\\def";
