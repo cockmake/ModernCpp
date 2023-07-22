@@ -26,8 +26,12 @@
       - [3.weak\_ptr （主要用来解决交叉引用的问题）](#3weak_ptr-主要用来解决交叉引用的问题)
       - [4.shared\_ptr的交叉引用问题，以及weak\_ptr的解决方案](#4shared_ptr的交叉引用问题以及weak_ptr的解决方案)
       - [5.智能指针使用过程中的一些注意点](#5智能指针使用过程中的一些注意点)
-  - [Chapter4](#chapter4)
-    - [1.](#1)
+  - [Chapter4 （文件操作）](#chapter4-文件操作)
+    - [1.获取路径的绝对路径和相对路径 os::absolute和os::relative](#1获取路径的绝对路径和相对路径-osabsolute和osrelative)
+    - [2.查看和切换当前目录，创建一层或多层目录 os::current\_path() 和 os::create\_directories()](#2查看和切换当前目录创建一层或多层目录-oscurrent_path-和-oscreate_directories)
+    - [3.文件以及文件夹的删除和拷贝 remove()和copy()](#3文件以及文件夹的删除和拷贝-remove和copy)
+    - [4.遍历路径与递归遍历 os::recursive\_directory\_entry 和 directory\_entry](#4遍历路径与递归遍历-osrecursive_directory_entry-和-directory_entry)
+    - [5.重命名与移动 os::rename](#5重命名与移动-osrename)
 
 # 现代C++快速入门 | C++11/14/17/20
 
@@ -261,19 +265,19 @@ int main(){
 ### 3\. 右值引用（重要！）
 
 > 右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大量的历史遗留问题， 消除了诸如 `std::vector`、`std::string` 之类的额外开销， 也才使得函数对象容器 `std::function` 成为了可能。
-> 
+>
 > **左值、右值的纯右值、将亡值、右值**
-> 
+>
 > 要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。
-> 
+>
 > **左值(lvalue, left value)**，顾名思义就是赋值符号左边的值。准确来说， 左值是表达式（不一定是赋值表达式）后依然存在的持久对象。
-> 
+>
 > **右值(rvalue, right value)**，右边的值，是指表达式结束后就不再存在的临时对象。
-> 
+>
 > 而 C++11 中为了引入强大的右值引用，将右值的概念进行了进一步的划分，分为：纯右值、将亡值。
-> 
+>
 > **纯右值(prvalue, pure rvalue)**，纯粹的右值，要么是纯粹的字面量，例如 `10`, `true`； 要么是求值结果相当于字面量或匿名临时对象，例如 `1+2`。非引用返回的临时变量、运算表达式产生的临时变量、 原始字面量、Lambda 表达式都属于纯右值。
-> 
+>
 > **将亡值(xvalue, expiring value)**，是 C++11 为了引入右值引用而提出的概念（因此在传统 C++中， 纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。
 
 ```C++
@@ -293,21 +297,20 @@ reference(rv2); // 输出左值
 ### 4\. 四种类型转换
 
 > 1.  `static_cast`
->     
+>
 >     这是最常用的一种类型转换方法。它可以用于基础数据类型之间的转换，如 `int` 到 `float`，或者指针类型之间的转换。
->     
+>
 > 2.  `dynamic_cast`
->     
+>
 >     `dynamic_cast` 主要用于对象的上行和下行转换，即基类和派生类之间的转换。如果转换失败，`dynamic_cast` 会返回 `nullptr`。
->     
+>
 > 3.  `const_cast`
->     
+>
 >     `const_cast` 主要用于去除 `const` 属性。
->     
+>
 > 4.  `reinterpret_cast`（个人猜测，可用于对数据的保护）
->     
+>
 >     `reinterpret_cast` 用于任何类型的指针或整数类型之间的转换。这是一个非常强大的转换，但也非常危险，应谨慎使用。reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。
->     
 
 ```C++
 //static_cast举例：
@@ -401,7 +404,7 @@ int main(){
 ```
 
 - 拷贝构造时会输出：
-  
+
     ```tex
     a的资源地址
     常量p地址：000000DCAF2FF818
@@ -415,9 +418,9 @@ int main(){
     vector地址：00000267B17340C8
     A被删除了
     ```
-    
+
 - 移动构造时会输出：
-  
+
     ```tex
     a的资源地址
     常量p地址：0000006F81FFF7C8
@@ -431,7 +434,6 @@ int main(){
     vector地址：000001AFDAF24488
     A被删除了
     ```
-    
 
 ***由此也可以看出移动构造对内置基本变量类型没有作用，比较使用占用内存较多的资源***
 
@@ -455,15 +457,18 @@ int main() {
     return 0;
 }
 ```
+
 ## Chapter3
+
 ### 1. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
 
 > 作为一名业余的算法爱好者，以上容器肯定是不离手的，这里稍微介绍一下array产生的原因，以及与vector的区别
 > `std::array`
 > 看到这个容器的时候肯定会出现这样的问题：
+>
 > 1.  为什么要引入  `std::array`  而不是直接使用  `std::vector`？
 > 2.  已经有了传统数组，为什么要用  `std::array`?
-> 与  `std::vector`  不同，`std::array`  对象的大小是固定的，如果容器大小是固定的，那么可以优先考虑使用  `std::array`  容器。 另外由于  `std::vector`  是自动扩容的，当存入大量的数据后，并且对容器进行了删除操作， 容器并不会自动归还被删除元素相应的内存，这时候就需要手动运行  `shrink_to_fit()`  释放这部分内存。
+>     与  `std::vector`  不同，`std::array`  对象的大小是固定的，如果容器大小是固定的，那么可以优先考虑使用  `std::array`  容器。 另外由于  `std::vector`  是自动扩容的，当存入大量的数据后，并且对容器进行了删除操作， 容器并不会自动归还被删除元素相应的内存，这时候就需要手动运行  `shrink_to_fit()`  释放这部分内存。
 
 ```C++
 // 遇到固定长度的数组时，优先使用array而不是T arr[len]
@@ -493,7 +498,9 @@ std::cout << "capacity:" << v.capacity() << std::endl; // 输出 0
 ```
 
 ### 2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
+
 #### 1.shared_ptr
+
 > std::shared_ptr 是一种智能指针，它能够记录多少个 shared_ptr 共同指向一个对象，从而消除显示的调用 delete，当引用计数变为零的时候就会将对象自动删除。
 > `shared_ptr sptr = make_share<T>(data);`
 
@@ -523,6 +530,7 @@ int main(){
 ```
 
 #### 2. unique_ptr
+
 > `std::unique_ptr` 是一种独占的智能指针，它禁止其他智能指针与其共享同一个对象，从而保证代码的安全
 > 既然是独占，换句话说就是不可复制。但是，我们可以利用 `std::move` 将其转移给其他的 `unique_ptr`
 
@@ -542,19 +550,21 @@ cout << uptr2 << endl;
 ```
 
 #### 3.weak_ptr （主要用来解决交叉引用的问题）
+
 > weak_ptr 设计的目的是为配合 shared_ptr 而引入的一种智能指针来协助 shared_ptr 工作, 它只可以从一个 shared_ptr 或另一个 weak_ptr 对象构造, 它的构造和析构不会引起引用记数的增加或减少。 同时weak_ptr 没有重载*和->但可以使用 lock 获得一个可用的 shared_ptr 对象。
 
 1. 弱指针的使用：
-weak_ptr wpGirl_1; // 定义空的弱指针
-weak_ptr wpGirl_2(spGirl); // 使用共享指针构造
-wpGirl_1 = spGirl; // 允许共享指针赋值给弱指针
+    weak_ptr wpGirl_1; // 定义空的弱指针
+    weak_ptr wpGirl_2(spGirl); // 使用共享指针构造
+    wpGirl_1 = spGirl; // 允许共享指针赋值给弱指针
 
 2. 弱指针也可以获得引用计数：
-wpGirl_1.use_count()
+    wpGirl_1.use_count()
 
 3. 弱指针不支持 * 和 -> 对指针的访问；
 
 4. 在必要的使用可以转换成共享指针 lock()。
+
 ```C++
 #include<memory>
 shared_ptr<Girl> sp_girl;
@@ -587,8 +597,10 @@ cout << wptr.expired() << endl; // 1，维护的数据被释放了
 ```
 
 #### 4.shared_ptr的交叉引用问题，以及weak_ptr的解决方案
+
 > 案例来自于：
 > 原文链接：https://blog.csdn.net/cpp_learner/article/details/118912592
+
 ```tex
 Boy类中有Girl的智能指针；
 Girl类中有Boy的智能指针；
@@ -664,6 +676,7 @@ int main(void) {
 ![运行截图](https://img-blog.csdnimg.cn/12cc6f26f5974fd4ba3f73eea9d5a0f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
 ![解释1](https://img-blog.csdnimg.cn/f00ef1a424b2427cb7817c146bf28abb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
 ![解释2](https://img-blog.csdnimg.cn/cd962cb9e0ae4610bebb40da2133e8a9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
+
 > 所以在使用shared_ptr智能指针时，要注意避免对象交叉使用智能指针的情况！ 否则会导致内存泄露！
 > 当然，这也是有办法解决的，那就是使用weak_ptr弱指针。
 
@@ -671,6 +684,7 @@ int main(void) {
 针对上面的情况，还讲一下另一种情况。如果是单方获得管理对方的共享指针，那么这样着是可以正常释放掉的！
 例如：
 ```
+
 ```C++
 void useTrap() {
 	shared_ptr<Boy> spBoy(new Boy());
@@ -746,7 +760,9 @@ int main(void) {
 ```
 
 #### 5.智能指针使用过程中的一些注意点
+
 1. `尽量不要同时使用原生指针和多个智能指针管理数据;`
+
 ```C++
 int *x = new int(10);
 unique_ptr< int > up1(x);
@@ -756,9 +772,11 @@ unique_ptr< int > up2(x);
 up1.reset(x);
 up2.reset(x);
 ```
+
 2. `智能指针get 函数返回的指针;
-如果我们主动释放掉get 函数获得的指针，那么智能 指针内部的指针就变成野指针了，析构时造成重复释放，带来严重后果!`
+    如果我们主动释放掉get 函数获得的指针，那么智能 指针内部的指针就变成野指针了，析构时造成重复释放，带来严重后果!`
 3. `禁止用任何类型智能指针get 函数返回的指针去初始化另外一个智能指针！`
+
 ```C++
 shared_ptr<int> sp1(new int(10));
 // 一个典型的错误用法 
@@ -766,9 +784,10 @@ shared_ptr<int> sp4(sp1.get());
 cout << sp4.use_count() << endl;
 // 因为这样会导致新的引用计数为1，如果释放的会导致原有的sp1错误，并且会释放两次
 ```
+
 4. `为了安全起见不要使用原生指针来初始化智能指针，就像第一条一样，不要混用`
-**常用的初始化方法有两种：**
-`shared_ptr<T> sptr(new X)及 shared_ptr sptr = make_shared<T>(data)`
+    **常用的初始化方法有两种：**
+    `shared_ptr<T> sptr(new X)及 shared_ptr sptr = make_shared<T>(data)`
 
 ## Chapter4 （文件操作）
 
