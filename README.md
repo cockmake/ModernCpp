@@ -20,12 +20,12 @@
     - [6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切](#6再次体验一些右值资源的迁移个人感觉转手形容更为贴切)
   - [Chapter3](#chapter3)
     - [1. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`](#1-常用容器vectorarrayunordered_mapunordered_set-queuepriority_queuedequestacktuplebit_set)
-  - [2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`](#2智能指针-shared_ptrunique_ptrweak_ptr)
-    - [1.shared\_ptr](#1shared_ptr)
-    - [2. unique\_ptr](#2-unique_ptr)
-    - [3.weak\_ptr （主要用来解决交叉引用的问题）](#3weak_ptr-主要用来解决交叉引用的问题)
-    - [4.shared\_ptr的交叉引用问题，以及weak\_ptr的解决方案](#4shared_ptr的交叉引用问题以及weak_ptr的解决方案)
-    - [5.智能指针使用过程中的一些注意点](#5智能指针使用过程中的一些注意点)
+    - [2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`](#2智能指针-shared_ptrunique_ptrweak_ptr)
+      - [1.shared\_ptr](#1shared_ptr)
+      - [2. unique\_ptr](#2-unique_ptr)
+      - [3.weak\_ptr （主要用来解决交叉引用的问题）](#3weak_ptr-主要用来解决交叉引用的问题)
+      - [4.shared\_ptr的交叉引用问题，以及weak\_ptr的解决方案](#4shared_ptr的交叉引用问题以及weak_ptr的解决方案)
+      - [5.智能指针使用过程中的一些注意点](#5智能指针使用过程中的一些注意点)
   - [Chapter4](#chapter4)
     - [1.](#1)
 
@@ -492,8 +492,8 @@ std::cout << "size:" << v.size() << std::endl;         // 输出 0
 std::cout << "capacity:" << v.capacity() << std::endl; // 输出 0
 ```
 
-## 2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
-### 1.shared_ptr
+### 2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
+#### 1.shared_ptr
 > std::shared_ptr 是一种智能指针，它能够记录多少个 shared_ptr 共同指向一个对象，从而消除显示的调用 delete，当引用计数变为零的时候就会将对象自动删除。
 > `shared_ptr sptr = make_share<T>(data);`
 
@@ -522,7 +522,7 @@ int main(){
 }
 ```
 
-### 2. unique_ptr
+#### 2. unique_ptr
 > `std::unique_ptr` 是一种独占的智能指针，它禁止其他智能指针与其共享同一个对象，从而保证代码的安全
 > 既然是独占，换句话说就是不可复制。但是，我们可以利用 `std::move` 将其转移给其他的 `unique_ptr`
 
@@ -541,7 +541,7 @@ cout << uptr2 << endl;
 //000001F0D66DFB30
 ```
 
-### 3.weak_ptr （主要用来解决交叉引用的问题）
+#### 3.weak_ptr （主要用来解决交叉引用的问题）
 > weak_ptr 设计的目的是为配合 shared_ptr 而引入的一种智能指针来协助 shared_ptr 工作, 它只可以从一个 shared_ptr 或另一个 weak_ptr 对象构造, 它的构造和析构不会引起引用记数的增加或减少。 同时weak_ptr 没有重载*和->但可以使用 lock 获得一个可用的 shared_ptr 对象。
 
 1. 弱指针的使用：
@@ -586,7 +586,7 @@ cout << wptr.use_count() << endl; // 0
 cout << wptr.expired() << endl; // 1，维护的数据被释放了
 ```
 
-### 4.shared_ptr的交叉引用问题，以及weak_ptr的解决方案
+#### 4.shared_ptr的交叉引用问题，以及weak_ptr的解决方案
 > 案例来自于：
 > 原文链接：https://blog.csdn.net/cpp_learner/article/details/118912592
 ```tex
@@ -758,7 +758,7 @@ int main(void) {
 }
 ```
 
-### 5.智能指针使用过程中的一些注意点
+#### 5.智能指针使用过程中的一些注意点
 1. `尽量不要同时使用原生指针和多个智能指针管理数据;`
 ```C++
 int *x = new int(10);
