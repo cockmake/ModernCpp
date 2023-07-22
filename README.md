@@ -1,33 +1,33 @@
-- [现代C++快速入门 | C++11/14/17/20](#现代c快速入门--c11141720)
-	- [Chapter1](#chapter1)
-	  - [1. 使用nullptr来代替NULL](#1-使用nullptr来代替null)
-	  - [2. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换](#2-使用static_casttypesrc_data来替代typesrc_data进行类型转换)
-	  - [3. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr](#3-善用常量表达式constexprconstexpr函数对变量进行绑定时变量的申明也需要constexpr)
-	  - [4. if switch 可以像for一样使用一个或多个临时变量了(C++17)](#4-if-switch-可以像for一样使用一个或多个临时变量了c17)
-	  - [5. 结构化绑定来解决多类型值存储问题(C++17) tuple | make\_tuple](#5-结构化绑定来解决多类型值存储问题c17-tuple--make_tuple)
-	  - [6. 类型判断is\_same 和 decltype](#6-类型判断is_same-和-decltype)
-	  - [7. 区间（范围）for循环](#7-区间范围for循环)
-	  - [8.可变参数数量的模板函数，以及变参模板展开](#8可变参数数量的模板函数以及变参模板展开)
-	  - [9.委托构造函数可以在同一个类中一个构造函数调用另一个构造函数，从而达到简化代码的目的](#9委托构造函数可以在同一个类中一个构造函数调用另一个构造函数从而达到简化代码的目的)
-	  - [10. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）](#10-多态这里存粹是为了回顾一下纯虚函数以及多态的触发条件)
-	  - [11.强枚举类](#11强枚举类)
-	- [Chapter2](#chapter2)
-	  - [1.泛型 Lambda即lambda函数支持auto形参](#1泛型-lambda即lambda函数支持auto形参)
-	  - [2.std::bind 和 std::placeholder 函数绑定与参数占位](#2stdbind-和-stdplaceholder-函数绑定与参数占位)
-	  - [3. 右值引用（重要！）](#3-右值引用重要)
-	  - [4. 四种类型转换](#4-四种类型转换)
-	  - [5.移动构造函数（资源移动，不进行拷贝销毁） move可以来构造右值](#5移动构造函数资源移动不进行拷贝销毁-move可以来构造右值)
-	  - [6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切](#6再次体验一些右值资源的迁移个人感觉转手形容更为贴切)
+- [现代C++快速入门 | C++11/14/17/20](#%E7%8E%B0%E4%BB%A3c%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8--c11141720)
+    - [Chapter1](#chapter1)
+        - [1\. 使用nullptr来代替NULL](#1-%E4%BD%BF%E7%94%A8nullptr%E6%9D%A5%E4%BB%A3%E6%9B%BFnull)
+        - [2\. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换](#2-%E4%BD%BF%E7%94%A8static_casttypesrc_data%E6%9D%A5%E6%9B%BF%E4%BB%A3typesrc_data%E8%BF%9B%E8%A1%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+        - [3\. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr](#3-%E5%96%84%E7%94%A8%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE%E5%BC%8Fconstexprconstexpr%E5%87%BD%E6%95%B0%E5%AF%B9%E5%8F%98%E9%87%8F%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A%E6%97%B6%E5%8F%98%E9%87%8F%E7%9A%84%E7%94%B3%E6%98%8E%E4%B9%9F%E9%9C%80%E8%A6%81constexpr)
+        - [4\. if switch 可以像for一样使用一个或多个临时变量了(C++17)](#4-if-switch-%E5%8F%AF%E4%BB%A5%E5%83%8Ffor%E4%B8%80%E6%A0%B7%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E4%B8%B4%E6%97%B6%E5%8F%98%E9%87%8F%E4%BA%86c17)
+        - [5\. 结构化绑定来解决多类型值存储问题(C++17) tuple | make_tuple](#5-%E7%BB%93%E6%9E%84%E5%8C%96%E7%BB%91%E5%AE%9A%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%80%BC%E5%AD%98%E5%82%A8%E9%97%AE%E9%A2%98c17-tuple--make_tuple)
+        - [6\. 类型判断is_same 和 decltype](#6-%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%ADis_same-%E5%92%8C-decltype)
+        - [7\. 区间（范围）for循环](#7-%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4for%E5%BE%AA%E7%8E%AF)
+        - [8.可变参数数量的模板函数，以及变参模板展开](#8%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F%E7%9A%84%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8F%98%E5%8F%82%E6%A8%A1%E6%9D%BF%E5%B1%95%E5%BC%80)
+        - [9.委托构造函数可以在同一个类中一个构造函数调用另一个构造函数，从而达到简化代码的目的](#9%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%AD%E4%B8%80%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BB%8E%E8%80%8C%E8%BE%BE%E5%88%B0%E7%AE%80%E5%8C%96%E4%BB%A3%E7%A0%81%E7%9A%84%E7%9B%AE%E7%9A%84)
+        - [10\. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）](#10-%E5%A4%9A%E6%80%81%E8%BF%99%E9%87%8C%E5%AD%98%E7%B2%B9%E6%98%AF%E4%B8%BA%E4%BA%86%E5%9B%9E%E9%A1%BE%E4%B8%80%E4%B8%8B%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%A4%9A%E6%80%81%E7%9A%84%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6)
+        - [11.强枚举类](#11%E5%BC%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB)
+    - [Chapter2](#chapter2)
+        - [1.泛型 Lambda即lambda函数支持auto形参](#1%E6%B3%9B%E5%9E%8B-lambda%E5%8D%B3lambda%E5%87%BD%E6%95%B0%E6%94%AF%E6%8C%81auto%E5%BD%A2%E5%8F%82)
+        - [2.std::bind 和 std::placeholder 函数绑定与参数占位](#2stdbind-%E5%92%8C-stdplaceholder-%E5%87%BD%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%8F%82%E6%95%B0%E5%8D%A0%E4%BD%8D)
+        - [3\. 右值引用（重要！）](#3-%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E9%87%8D%E8%A6%81)
+        - [4\. 四种类型转换](#4-%E5%9B%9B%E7%A7%8D%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+        - [5.移动构造函数（资源移动，不进行拷贝销毁） move可以来构造右值](#5%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B5%84%E6%BA%90%E7%A7%BB%E5%8A%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E6%8B%B7%E8%B4%9D%E9%94%80%E6%AF%81-move%E5%8F%AF%E4%BB%A5%E6%9D%A5%E6%9E%84%E9%80%A0%E5%8F%B3%E5%80%BC)
+        - [6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切](#6%E5%86%8D%E6%AC%A1%E4%BD%93%E9%AA%8C%E4%B8%80%E4%BA%9B%E5%8F%B3%E5%80%BC%E8%B5%84%E6%BA%90%E7%9A%84%E8%BF%81%E7%A7%BB%E4%B8%AA%E4%BA%BA%E6%84%9F%E8%A7%89%E8%BD%AC%E6%89%8B%E5%BD%A2%E5%AE%B9%E6%9B%B4%E4%B8%BA%E8%B4%B4%E5%88%87)
 
 # 现代C++快速入门 | C++11/14/17/20
 
 ## Chapter1
 
-### 1. 使用nullptr来代替NULL
+### 1\. 使用nullptr来代替NULL
 
-### 2. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换
+### 2\. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换
 
-### 3. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr
+### 3\. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr
 
 ```C++
 #define A 5
@@ -42,7 +42,7 @@ int main(){
 }
 ```
 
-### 4. if switch 可以像for一样使用一个或多个临时变量了(C++17)
+### 4\. if switch 可以像for一样使用一个或多个临时变量了(C++17)
 
 ```c++
 int c = 1;
@@ -63,7 +63,7 @@ default:
 }
 ```
 
-### 5. 结构化绑定来解决多类型值存储问题(C++17) tuple | make_tuple
+### 5\. 结构化绑定来解决多类型值存储问题(C++17) tuple | make_tuple
 
 ```C++
 #include<tuple>
@@ -78,9 +78,7 @@ cout << b << endl;
 cout << c << endl;
 ```
 
-
-
-### 6. 类型判断is_same 和 decltype
+### 6\. 类型判断is_same 和 decltype
 
 ```C++
 int a = 1;
@@ -92,7 +90,7 @@ if (is_same<decltype(a), decltype(b)>::value) cout << "a 与 b 类型相同" << 
 else cout << "a 与 b 类型不相同" << endl;
 ```
 
-### 7. 区间（范围）for循环
+### 7\. 区间（范围）for循环
 
 ### 8.可变参数数量的模板函数，以及变参模板展开
 
@@ -144,9 +142,7 @@ int main(){
 }
 ```
 
-
-
-### 10. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）
+### 10\. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）
 
 ```C++
 class ABase {
@@ -252,23 +248,23 @@ int main(){
 }
 ```
 
-### 3. 右值引用（重要！）
+### 3\. 右值引用（重要！）
 
->   右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大量的历史遗留问题， 消除了诸如 `std::vector`、`std::string` 之类的额外开销， 也才使得函数对象容器 `std::function` 成为了可能。
->
->   **左值、右值的纯右值、将亡值、右值**
->
->   要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。
->
->   **左值(lvalue, left value)**，顾名思义就是赋值符号左边的值。准确来说， 左值是表达式（不一定是赋值表达式）后依然存在的持久对象。
->
->   **右值(rvalue, right value)**，右边的值，是指表达式结束后就不再存在的临时对象。
->
->   而 C++11 中为了引入强大的右值引用，将右值的概念进行了进一步的划分，分为：纯右值、将亡值。
->
->   **纯右值(prvalue, pure rvalue)**，纯粹的右值，要么是纯粹的字面量，例如 `10`, `true`； 要么是求值结果相当于字面量或匿名临时对象，例如 `1+2`。非引用返回的临时变量、运算表达式产生的临时变量、 原始字面量、Lambda 表达式都属于纯右值。
->
->   **将亡值(xvalue, expiring value)**，是 C++11 为了引入右值引用而提出的概念（因此在传统 C++中， 纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。
+> 右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大量的历史遗留问题， 消除了诸如 `std::vector`、`std::string` 之类的额外开销， 也才使得函数对象容器 `std::function` 成为了可能。
+> 
+> **左值、右值的纯右值、将亡值、右值**
+> 
+> 要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。
+> 
+> **左值(lvalue, left value)**，顾名思义就是赋值符号左边的值。准确来说， 左值是表达式（不一定是赋值表达式）后依然存在的持久对象。
+> 
+> **右值(rvalue, right value)**，右边的值，是指表达式结束后就不再存在的临时对象。
+> 
+> 而 C++11 中为了引入强大的右值引用，将右值的概念进行了进一步的划分，分为：纯右值、将亡值。
+> 
+> **纯右值(prvalue, pure rvalue)**，纯粹的右值，要么是纯粹的字面量，例如 `10`, `true`； 要么是求值结果相当于字面量或匿名临时对象，例如 `1+2`。非引用返回的临时变量、运算表达式产生的临时变量、 原始字面量、Lambda 表达式都属于纯右值。
+> 
+> **将亡值(xvalue, expiring value)**，是 C++11 为了引入右值引用而提出的概念（因此在传统 C++中， 纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。
 
 ```C++
 //string的重载operator+返回的是一个要即将被销毁的对象无法赋值给常规引用，下面是两种延续其声明周期的方法：
@@ -284,23 +280,24 @@ cout << rv2 << endl; // string,string,string,Test
 reference(rv2); // 输出左值
 ```
 
-### 4. 四种类型转换
+### 4\. 四种类型转换
 
->   1.   `static_cast`
->
->        这是最常用的一种类型转换方法。它可以用于基础数据类型之间的转换，如 `int` 到 `float`，或者指针类型之间的转换。
->
->   2. `dynamic_cast`
->
->       `dynamic_cast` 主要用于对象的上行和下行转换，即基类和派生类之间的转换。如果转换失败，`dynamic_cast` 会返回 `nullptr`。
->
->   3. `const_cast`
->
->       `const_cast` 主要用于去除 `const` 属性。
->
->   4. `reinterpret_cast`（个人猜测，可用于对数据的保护）
->
->       `reinterpret_cast` 用于任何类型的指针或整数类型之间的转换。这是一个非常强大的转换，但也非常危险，应谨慎使用。reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。
+> 1.  `static_cast`
+>     
+>     这是最常用的一种类型转换方法。它可以用于基础数据类型之间的转换，如 `int` 到 `float`，或者指针类型之间的转换。
+>     
+> 2.  `dynamic_cast`
+>     
+>     `dynamic_cast` 主要用于对象的上行和下行转换，即基类和派生类之间的转换。如果转换失败，`dynamic_cast` 会返回 `nullptr`。
+>     
+> 3.  `const_cast`
+>     
+>     `const_cast` 主要用于去除 `const` 属性。
+>     
+> 4.  `reinterpret_cast`（个人猜测，可用于对数据的保护）
+>     
+>     `reinterpret_cast` 用于任何类型的指针或整数类型之间的转换。这是一个非常强大的转换，但也非常危险，应谨慎使用。reinterpret_cast是为了映射到一个完全不同类型的意思，这个关键词在我们需要把类型映射回原有类型时用到它。我们映射到的类型仅仅是为了故弄玄虚和其他目的，这是所有映射中最危险的。
+>     
 
 ```C++
 //static_cast举例：
@@ -393,8 +390,8 @@ int main(){
 }
 ```
 
--   拷贝构造时会输出：
-
+- 拷贝构造时会输出：
+    
     ```tex
     a的资源地址
     常量p地址：000000DCAF2FF818
@@ -408,9 +405,9 @@ int main(){
     vector地址：00000267B17340C8
     A被删除了
     ```
-
--   移动构造时会输出：
-
+    
+- 移动构造时会输出：
+    
     ```tex
     a的资源地址
     常量p地址：0000006F81FFF7C8
@@ -424,6 +421,7 @@ int main(){
     vector地址：000001AFDAF24488
     A被删除了
     ```
+    
 
 ***由此也可以看出移动构造对内置基本变量类型没有作用，比较使用占用内存较多的资源***
 
@@ -448,6 +446,331 @@ int main() {
 }
 ```
 
-## 3.容器 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
+## 3. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
 
->   作为一名业余的算法爱好者，以上容器肯定是不离手的，这里稍微介绍一下array产生的原因，以及与vector的区别
+> 作为一名业余的算法爱好者，以上容器肯定是不离手的，这里稍微介绍一下array产生的原因，以及与vector的区别
+> `std::array`
+> 看到这个容器的时候肯定会出现这样的问题：
+> 1.  为什么要引入  `std::array`  而不是直接使用  `std::vector`？
+> 2.  已经有了传统数组，为什么要用  `std::array`?
+> 与  `std::vector`  不同，`std::array`  对象的大小是固定的，如果容器大小是固定的，那么可以优先考虑使用  `std::array`  容器。 另外由于  `std::vector`  是自动扩容的，当存入大量的数据后，并且对容器进行了删除操作， 容器并不会自动归还被删除元素相应的内存，这时候就需要手动运行  `shrink_to_fit()`  释放这部分内存。
+
+```C++
+// 遇到固定长度的数组时，优先使用array而不是T arr[len]
+std::vector<int> v;
+std::cout << "size:" << v.size() << std::endl;         // 输出 0
+std::cout << "capacity:" << v.capacity() << std::endl; // 输出 0
+// 如下可看出 std::vector 的存储是自动管理的，按需自动扩张
+// 但是如果空间不足，需要重新分配更多内存，而重分配内存通常是性能上有开销的操作
+v.push_back(1);
+v.push_back(2);
+v.push_back(3);
+std::cout << "size:" << v.size() << std::endl;         // 输出 3
+std::cout << "capacity:" << v.capacity() << std::endl; // 输出 4
+// 这里的自动扩张逻辑与 Golang 的 slice 很像
+v.push_back(4);
+v.push_back(5);
+std::cout << "size:" << v.size() << std::endl;         // 输出 5
+std::cout << "capacity:" << v.capacity() << std::endl; // 输出 8
+// 如下可看出容器虽然清空了元素，但是被清空元素的内存并没有归还
+v.clear();                                             
+std::cout << "size:" << v.size() << std::endl;         // 输出 0
+std::cout << "capacity:" << v.capacity() << std::endl; // 输出 8
+// 额外内存可通过 shrink_to_fit() 调用返回给系统
+v.shrink_to_fit();
+std::cout << "size:" << v.size() << std::endl;         // 输出 0
+std::cout << "capacity:" << v.capacity() << std::endl; // 输出 0
+```
+
+## 4.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
+### 1.shared_ptr
+> std::shared_ptr 是一种智能指针，它能够记录多少个 shared_ptr 共同指向一个对象，从而消除显示的调用 delete，当引用计数变为零的时候就会将对象自动删除。
+> `shared_ptr sptr = make_share<T>(data);`
+
+```C++
+#include<memory>
+#include<iostream>
+using namespace std;
+int main(){
+	constexpr int len = 4;
+	shared_ptr sptr = make_shared<array<int, len>>(array<int, len>{1, 2, 3, 4});
+	{
+		//块语句
+		array<int, len>* p = sptr.get(); //生成的普通指针不会修改引用计数
+		cout << sptr.use_count() << endl; //1
+		shared_ptr sptr2 = sptr;
+		(*sptr2)[0] = 100;
+		cout << sptr.use_count() << endl; // 2
+		cout << sptr2.use_count() << endl; //2
+		sptr2.reset();
+		cout << sptr.use_count() << endl; //1
+		cout << sptr2.use_count() << endl; //0
+	}
+	cout << sptr.use_count() << endl; //1
+	cout << (*sptr)[0] << endl; //100
+	return 0;
+}
+```
+
+### 2. unique_ptr
+> `std::unique_ptr` 是一种独占的智能指针，它禁止其他智能指针与其共享同一个对象，从而保证代码的安全
+> 既然是独占，换句话说就是不可复制。但是，我们可以利用 `std::move` 将其转移给其他的 `unique_ptr`
+
+```C++
+#include<memory>
+unique_ptr uptr = make_unique<vector<int>>();
+uptr->emplace_back(1);
+cout << uptr << endl;
+// unique_ptr uptr2 = uptr; 不被允许
+unique_ptr uptr2 = move(uptr);
+cout << uptr << endl;  //资源已近转move转手
+cout << uptr2 << endl;
+//stdout:
+//000001F0D66DFB30
+//0000000000000000
+//000001F0D66DFB30
+```
+
+### 3.weak_ptr （主要用来解决交叉引用的问题）
+> weak_ptr 设计的目的是为配合 shared_ptr 而引入的一种智能指针来协助 shared_ptr 工作, 它只可以从一个 shared_ptr 或另一个 weak_ptr 对象构造, 它的构造和析构不会引起引用记数的增加或减少。 同时weak_ptr 没有重载*和->但可以使用 lock 获得一个可用的 shared_ptr 对象。
+
+1. 弱指针的使用：
+weak_ptr wpGirl_1; // 定义空的弱指针
+weak_ptr wpGirl_2(spGirl); // 使用共享指针构造
+wpGirl_1 = spGirl; // 允许共享指针赋值给弱指针
+
+2. 弱指针也可以获得引用计数：
+wpGirl_1.use_count()
+
+3. 弱指针不支持 * 和 -> 对指针的访问；
+
+4. 在必要的使用可以转换成共享指针 lock()。
+```C++
+#include<memory>
+shared_ptr<Girl> sp_girl;
+sp_girl = wpGirl_1.lock(); //别忘记引用计数+1了
+
+// 使用完之后，再将共享指针置nullptr即可
+sp_girl = nullptr; //reset
+```
+
+```C++
+#include<memory>
+weak_ptr wptr = make_shared<int>();
+{
+	shared_ptr uptr = make_shared<int>(10);
+	wptr = uptr;
+	cout << wptr.use_count() << endl; // 1
+	cout << wptr.expired() << endl; //0，维护的数据还没有被释放
+	if (!wptr.expired()) {
+		 shared_ptr t = wptr.lock();
+		//(*wptr.lock()) = 20;
+		 (*t) = 20;
+		 cout << uptr.use_count() << endl; // 2
+		 t = nullptr; //鉴于内部实现 nullptr 和 reset 是绝对等价的
+		 cout << uptr.use_count() << endl;// 1
+	}
+	cout << (*uptr) << endl; //20，lock获取weak_ptr所对应的shared_ptr
+}
+cout << wptr.use_count() << endl; // 0
+cout << wptr.expired() << endl; // 1，维护的数据被释放了
+```
+
+### 4.shared_ptr的交叉引用问题，以及weak_ptr的解决方案
+> 案例来自于：
+> 原文链接：https://blog.csdn.net/cpp_learner/article/details/118912592
+```tex
+Boy类中有Girl的智能指针；
+Girl类中有Boy的智能指针；
+当他们交叉互相持有对方的管理对象时…
+```
+
+```C++
+#include <iostream>
+#include <string>
+#include <memory>
+
+using namespace std;
+
+class Girl;
+
+class Boy {
+public:
+	Boy() {
+		cout << "Boy 构造函数" << endl;
+	}
+
+	~Boy() {
+		cout << "~Boy 析构函数" << endl;
+	}
+
+	void setGirlFriend(shared_ptr<Girl> _girlFriend) {
+		this->girlFriend = _girlFriend;
+	}
+
+private:
+	shared_ptr<Girl> girlFriend;
+};
+
+class Girl {
+public:
+	Girl() {
+		cout << "Girl 构造函数" << endl;
+	}
+
+	~Girl() {
+		cout << "~Girl 析构函数" << endl;
+	}
+
+	void setBoyFriend(shared_ptr<Boy> _boyFriend) {
+		this->boyFriend = _boyFriend;
+	}
+
+private:
+	shared_ptr<Boy> boyFriend;
+};
+
+
+void useTrap() {
+	shared_ptr<Boy> spBoy(new Boy());
+	shared_ptr<Girl> spGirl(new Girl());
+
+	// 陷阱用法
+	spBoy->setGirlFriend(spGirl);
+	spGirl->setBoyFriend(spBoy);
+	// 此时boy和girl的引用计数都是2
+}
+
+
+int main(void) {
+	useTrap();
+
+	system("pause");
+	return 0;
+}
+```
+
+**这时Boy和Girl对象均没有得到释放**
+![运行截图](https://img-blog.csdnimg.cn/12cc6f26f5974fd4ba3f73eea9d5a0f8.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
+![解释1](https://img-blog.csdnimg.cn/f00ef1a424b2427cb7817c146bf28abb.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
+![解释2](https://img-blog.csdnimg.cn/cd962cb9e0ae4610bebb40da2133e8a9.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
+> 所以在使用shared_ptr智能指针时，要注意避免对象交叉使用智能指针的情况！ 否则会导致内存泄露！
+> 当然，这也是有办法解决的，那就是使用weak_ptr弱指针。
+
+```tex
+针对上面的情况，还讲一下另一种情况。如果是单方获得管理对方的共享指针，那么这样着是可以正常释放掉的！
+例如：
+```
+```C++
+void useTrap() {
+	shared_ptr<Boy> spBoy(new Boy());
+	shared_ptr<Girl> spGirl(new Girl());
+
+	// 单方获得管理
+	//spBoy->setGirlFriend(spGirl);
+	spGirl->setBoyFriend(spBoy);	
+}
+```
+
+![运行结果](https://img-blog.csdnimg.cn/e5439af7a98d461493bc3356f494fd2e.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NwcF9sZWFybmVy,size_16,color_FFFFFF,t_70#pic_center)
+
+**记住weak_ptr确实"指向"了那块资源（表述为记录了那块资源的状态更为贴切）但是并不会导致引用计数的增加，再利用weak_ptr的特性所以可以完美的解决这个问题**
+
+```C++
+#include <iostream>
+#include <string>
+#include <memory>
+
+using namespace std;
+
+class Girl;
+
+class Boy {
+public:
+	Boy() {
+		cout << "Boy 构造函数" << endl;
+	}
+
+	~Boy() {
+		cout << "~Boy 析构函数" << endl;
+	}
+
+	void setGirlFriend(shared_ptr<Girl> _girlFriend) {
+		this->girlFriend = _girlFriend;
+
+
+		// 在必要的使用可以转换成共享指针
+		shared_ptr<Girl> sp_girl;
+		sp_girl = this->girlFriend.lock();
+
+		cout << sp_girl.use_count() << endl;
+		// 使用完之后，再将共享指针置NULL即可
+		sp_girl = NULL;
+	}
+
+private:
+	weak_ptr<Girl> girlFriend;
+};
+
+class Girl {
+public:
+	Girl() {
+		cout << "Girl 构造函数" << endl;
+	}
+
+	~Girl() {
+		cout << "~Girl 析构函数" << endl;
+	}
+
+	void setBoyFriend(shared_ptr<Boy> _boyFriend) {
+		this->boyFriend = _boyFriend;
+	}
+
+private:
+	shared_ptr<Boy> boyFriend;
+};
+
+
+void useTrap() {
+	shared_ptr<Boy> spBoy(new Boy());
+	shared_ptr<Girl> spGirl(new Girl());
+
+	spBoy->setGirlFriend(spGirl);
+	spGirl->setBoyFriend(spBoy);
+}
+
+
+int main(void) {
+	useTrap();
+
+	system("pause");
+	return 0;
+}
+```
+
+### 5.智能指针使用过程中的一些注意点
+1. `尽量不要同时使用原生指针和多个智能指针管理数据;`
+```C++
+int *x = new int(10);
+unique_ptr< int > up1(x);
+unique_ptr< int > up2(x);
+// 警告! 以上代码使up1 up2指向同一个内存,非常危险
+或以下形式：
+up1.reset(x);
+up2.reset(x);
+```
+2. `智能指针get 函数返回的指针;
+如果我们主动释放掉get 函数获得的指针，那么智能 指针内部的指针就变成野指针了，析构时造成重复释放，带来严重后果!`
+3. `禁止用任何类型智能指针get 函数返回的指针去初始化另外一个智能指针！`
+```C++
+shared_ptr<int> sp1(new int(10));
+// 一个典型的错误用法 
+shared_ptr<int> sp4(sp1.get());
+cout << sp4.use_count() << endl;
+// 因为这样会导致新的引用计数为1，如果释放的会导致原有的sp1错误，并且会释放两次
+```
+4. `为了安全起见不要使用原生指针来初始化智能指针，就像第一条一样，不要混用`
+**常用的初始化方法有两种：**
+`shared_ptr<T> sptr(new X)及 shared_ptr sptr = make_shared<T>(data)`
+## Chapter4
+### 1.
