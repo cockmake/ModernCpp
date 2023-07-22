@@ -1,23 +1,33 @@
-- [现代C++快速入门 | C++11/14/17/20](#%E7%8E%B0%E4%BB%A3c%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8--c11141720)
-    - [Chapter1](#chapter1)
-        - [1\. 使用nullptr来代替NULL](#1-%E4%BD%BF%E7%94%A8nullptr%E6%9D%A5%E4%BB%A3%E6%9B%BFnull)
-        - [2\. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换](#2-%E4%BD%BF%E7%94%A8static_casttypesrc_data%E6%9D%A5%E6%9B%BF%E4%BB%A3typesrc_data%E8%BF%9B%E8%A1%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
-        - [3\. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr](#3-%E5%96%84%E7%94%A8%E5%B8%B8%E9%87%8F%E8%A1%A8%E8%BE%BE%E5%BC%8Fconstexprconstexpr%E5%87%BD%E6%95%B0%E5%AF%B9%E5%8F%98%E9%87%8F%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A%E6%97%B6%E5%8F%98%E9%87%8F%E7%9A%84%E7%94%B3%E6%98%8E%E4%B9%9F%E9%9C%80%E8%A6%81constexpr)
-        - [4\. if switch 可以像for一样使用一个或多个临时变量了(C++17)](#4-if-switch-%E5%8F%AF%E4%BB%A5%E5%83%8Ffor%E4%B8%80%E6%A0%B7%E4%BD%BF%E7%94%A8%E4%B8%80%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E4%B8%B4%E6%97%B6%E5%8F%98%E9%87%8F%E4%BA%86c17)
-        - [5\. 结构化绑定来解决多类型值存储问题(C++17) tuple | make_tuple](#5-%E7%BB%93%E6%9E%84%E5%8C%96%E7%BB%91%E5%AE%9A%E6%9D%A5%E8%A7%A3%E5%86%B3%E5%A4%9A%E7%B1%BB%E5%9E%8B%E5%80%BC%E5%AD%98%E5%82%A8%E9%97%AE%E9%A2%98c17-tuple--make_tuple)
-        - [6\. 类型判断is_same 和 decltype](#6-%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%ADis_same-%E5%92%8C-decltype)
-        - [7\. 区间（范围）for循环](#7-%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4for%E5%BE%AA%E7%8E%AF)
-        - [8.可变参数数量的模板函数，以及变参模板展开](#8%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F%E7%9A%84%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%8F%98%E5%8F%82%E6%A8%A1%E6%9D%BF%E5%B1%95%E5%BC%80)
-        - [9.委托构造函数可以在同一个类中一个构造函数调用另一个构造函数，从而达到简化代码的目的](#9%E5%A7%94%E6%89%98%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E5%9C%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E7%B1%BB%E4%B8%AD%E4%B8%80%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%8F%A6%E4%B8%80%E4%B8%AA%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BB%8E%E8%80%8C%E8%BE%BE%E5%88%B0%E7%AE%80%E5%8C%96%E4%BB%A3%E7%A0%81%E7%9A%84%E7%9B%AE%E7%9A%84)
-        - [10\. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）](#10-%E5%A4%9A%E6%80%81%E8%BF%99%E9%87%8C%E5%AD%98%E7%B2%B9%E6%98%AF%E4%B8%BA%E4%BA%86%E5%9B%9E%E9%A1%BE%E4%B8%80%E4%B8%8B%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%A4%9A%E6%80%81%E7%9A%84%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6)
-        - [11.强枚举类](#11%E5%BC%BA%E6%9E%9A%E4%B8%BE%E7%B1%BB)
-    - [Chapter2](#chapter2)
-        - [1.泛型 Lambda即lambda函数支持auto形参](#1%E6%B3%9B%E5%9E%8B-lambda%E5%8D%B3lambda%E5%87%BD%E6%95%B0%E6%94%AF%E6%8C%81auto%E5%BD%A2%E5%8F%82)
-        - [2.std::bind 和 std::placeholder 函数绑定与参数占位](#2stdbind-%E5%92%8C-stdplaceholder-%E5%87%BD%E6%95%B0%E7%BB%91%E5%AE%9A%E4%B8%8E%E5%8F%82%E6%95%B0%E5%8D%A0%E4%BD%8D)
-        - [3\. 右值引用（重要！）](#3-%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8%E9%87%8D%E8%A6%81)
-        - [4\. 四种类型转换](#4-%E5%9B%9B%E7%A7%8D%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
-        - [5.移动构造函数（资源移动，不进行拷贝销毁） move可以来构造右值](#5%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%B5%84%E6%BA%90%E7%A7%BB%E5%8A%A8%E4%B8%8D%E8%BF%9B%E8%A1%8C%E6%8B%B7%E8%B4%9D%E9%94%80%E6%AF%81-move%E5%8F%AF%E4%BB%A5%E6%9D%A5%E6%9E%84%E9%80%A0%E5%8F%B3%E5%80%BC)
-        - [6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切](#6%E5%86%8D%E6%AC%A1%E4%BD%93%E9%AA%8C%E4%B8%80%E4%BA%9B%E5%8F%B3%E5%80%BC%E8%B5%84%E6%BA%90%E7%9A%84%E8%BF%81%E7%A7%BB%E4%B8%AA%E4%BA%BA%E6%84%9F%E8%A7%89%E8%BD%AC%E6%89%8B%E5%BD%A2%E5%AE%B9%E6%9B%B4%E4%B8%BA%E8%B4%B4%E5%88%87)
+- [现代C++快速入门 | C++11/14/17/20](#现代c快速入门--c11141720)
+  - [Chapter1](#chapter1)
+    - [1. 使用nullptr来代替NULL](#1-使用nullptr来代替null)
+    - [2. 使用`static_cast<type>(src_data)`来替代`(type)src_data`进行类型转换](#2-使用static_casttypesrc_data来替代typesrc_data进行类型转换)
+    - [3. 善用常量表达式constexpr，constexpr函数对变量进行绑定时变量的申明也需要constexpr](#3-善用常量表达式constexprconstexpr函数对变量进行绑定时变量的申明也需要constexpr)
+    - [4. if switch 可以像for一样使用一个或多个临时变量了(C++17)](#4-if-switch-可以像for一样使用一个或多个临时变量了c17)
+    - [5. 结构化绑定来解决多类型值存储问题(C++17) tuple | make\_tuple](#5-结构化绑定来解决多类型值存储问题c17-tuple--make_tuple)
+    - [6. 类型判断is\_same 和 decltype](#6-类型判断is_same-和-decltype)
+    - [7. 区间（范围）for循环](#7-区间范围for循环)
+    - [8.可变参数数量的模板函数，以及变参模板展开](#8可变参数数量的模板函数以及变参模板展开)
+    - [9.委托构造函数可以在同一个类中一个构造函数调用另一个构造函数，从而达到简化代码的目的](#9委托构造函数可以在同一个类中一个构造函数调用另一个构造函数从而达到简化代码的目的)
+    - [10. 多态（这里存粹是为了回顾一下（纯）虚函数以及多态的触发条件）](#10-多态这里存粹是为了回顾一下纯虚函数以及多态的触发条件)
+    - [11.强枚举类](#11强枚举类)
+  - [Chapter2](#chapter2)
+    - [1.泛型 Lambda即lambda函数支持auto形参](#1泛型-lambda即lambda函数支持auto形参)
+    - [2.std::bind 和 std::placeholder 函数绑定与参数占位](#2stdbind-和-stdplaceholder-函数绑定与参数占位)
+    - [3. 右值引用（重要！）](#3-右值引用重要)
+    - [4. 四种类型转换](#4-四种类型转换)
+    - [5.移动构造函数（资源移动，不进行拷贝销毁） move可以来构造右值](#5移动构造函数资源移动不进行拷贝销毁-move可以来构造右值)
+    - [6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切](#6再次体验一些右值资源的迁移个人感觉转手形容更为贴切)
+  - [Chapter3](#chapter3)
+    - [1. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`](#1-常用容器vectorarrayunordered_mapunordered_set-queuepriority_queuedequestacktuplebit_set)
+  - [2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`](#2智能指针-shared_ptrunique_ptrweak_ptr)
+    - [1.shared\_ptr](#1shared_ptr)
+    - [2. unique\_ptr](#2-unique_ptr)
+    - [3.weak\_ptr （主要用来解决交叉引用的问题）](#3weak_ptr-主要用来解决交叉引用的问题)
+    - [4.shared\_ptr的交叉引用问题，以及weak\_ptr的解决方案](#4shared_ptr的交叉引用问题以及weak_ptr的解决方案)
+    - [5.智能指针使用过程中的一些注意点](#5智能指针使用过程中的一些注意点)
+  - [Chapter4](#chapter4)
+    - [1.](#1)
 
 # 现代C++快速入门 | C++11/14/17/20
 
@@ -445,8 +455,8 @@ int main() {
     return 0;
 }
 ```
-
-## 3. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
+## Chapter3
+### 1. 常用容器`vector`，`array`，`（unordered_）map`，`（unordered_）set`， `queue`，`priority_queue`，`deque`，`stack`，`tuple`，`bit_set`
 
 > 作为一名业余的算法爱好者，以上容器肯定是不离手的，这里稍微介绍一下array产生的原因，以及与vector的区别
 > `std::array`
@@ -482,7 +492,7 @@ std::cout << "size:" << v.size() << std::endl;         // 输出 0
 std::cout << "capacity:" << v.capacity() << std::endl; // 输出 0
 ```
 
-## 4.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
+## 2.智能指针 `shared_ptr`，`unique_ptr`，`weak_ptr`
 ### 1.shared_ptr
 > std::shared_ptr 是一种智能指针，它能够记录多少个 shared_ptr 共同指向一个对象，从而消除显示的调用 delete，当引用计数变为零的时候就会将对象自动删除。
 > `shared_ptr sptr = make_share<T>(data);`
