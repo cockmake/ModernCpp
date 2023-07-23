@@ -71,18 +71,18 @@ int main() {
     //
 
     ////线程量产
-//std::vector<std::thread> threads;
-//for (unsigned i = 0; i < 20; ++i)
-//{
-//    threads.emplace_back(do_work, i); // 产生线程
-//    
-//}
-//for (auto& entry : threads) // 对每个线程调用 join()
-//    entry.join();
-//lock(m1, m2)用来加锁，可以同时加多个锁，如果一个没加上就进入阻塞并释放已经加的锁
-//lock_guard用来监视锁的释放，主要是因为lock已经上锁过了
-//lock_guard(m1, adopt_lock)
-//lock_guard(m2, adopt_lock)
+    //std::vector<std::thread> threads;
+    //for (unsigned i = 0; i < 20; ++i)
+    //{
+    //    threads.emplace_back(do_work, i); // 产生线程
+    //    
+    //}
+    //for (auto& entry : threads) // 对每个线程调用 join()
+    //    entry.join();
+    //lock(m1, m2)用来加锁，可以同时加多个锁，如果一个没加上就进入阻塞并释放已经加的锁
+    //lock_guard用来监视锁的释放，主要是因为lock已经上锁过了
+    //lock_guard(m1, adopt_lock)
+    //lock_guard(m2, adopt_lock)
 
     //上面的两种搭配可以使用scoped_lock(m1, m2)直接替换 C++17引入
     //unique_lock和原生mutex的主要区别的RAII和所有权可转移
@@ -129,11 +129,13 @@ int main() {
     //        entries[domain] = dns_details;
     //    }
     //};
-//scope_lock（lock | lock_guard（RAII）） 解决多条件持有才能继续的问题
-//shared_lock 解决多读/单写问题
-// #include<shared_mutex>
-// unique_lock主要是和condition_variable进行配合的
-// 一个线程不能锁定一个它已经锁定的互斥量，否则将导致死锁。
+    // 
+    
+    //scope_lock（lock | lock_guard（RAII）） 解决多条件持有才能继续的问题
+    //shared_lock 解决多读/单写问题
+    // #include<shared_mutex>
+    // unique_lock主要是和condition_variable进行配合的
+    // 一个线程不能锁定一个它已经锁定的互斥量，否则将导致死锁。
 
     // 异步响应
     //#include<condition_variable>
@@ -158,8 +160,9 @@ int main() {
           while(true)
           {
             std::unique_lock<std::mutex> lk(mut);  // 4
+            //wait 带有 Pred 的 仅仅会在调用和唤醒的时候进行检验
             data_cond.wait(
-                 lk,[]{return !data_queue.empty();});  // 5
+                 lk,[](){return !data_queue.empty();});  // 5
             data_chunk data=data_queue.front();
             data_queue.pop();
             lk.unlock();  // 6
@@ -170,10 +173,6 @@ int main() {
         }
     */
     
-
-    //获取异步任务的返回值
-
-
     //C++20引入了jthread是一个RAII设计的类
     //并可以被外部请求停止
     exec();
