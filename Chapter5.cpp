@@ -9,6 +9,7 @@
 #include <shared_mutex>
 #include<condition_variable>
 #include<future>
+
 using namespace std;
 class P {
 public:
@@ -35,6 +36,20 @@ void f(thread t) {
 }
 void do_work(unsigned id) {
 
+}
+jthread t;
+void exec() {
+    t = jthread([](int a) {
+        while (1) {
+            cout << a++ << endl;
+            this_thread::sleep_for(0.2s);
+
+            if (t.get_stop_token().stop_requested()) {
+                //做结束的收尾工作
+                return;
+            }
+        }
+    }, 1);
 }
 int main() {
     //cout << this_thread::get_id() << endl;
@@ -157,7 +172,16 @@ int main() {
     
 
     //获取异步任务的返回值
+
+
+    //C++20引入了jthread是一个RAII设计的类
+    //并可以被外部请求停止
+    exec();
+    this_thread::sleep_for(chrono::milliseconds(2000));
     
-    
+    cout << "——————" << endl;
+    cout << t.get_stop_source() << endl;
+    t.request_stop();
+    //cout << "是否可以停止："<< t.request_stop() << endl;
     return 0;
 }
