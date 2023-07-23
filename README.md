@@ -32,6 +32,7 @@
     - [3.文件以及文件夹的删除和拷贝 remove()和copy()](#3文件以及文件夹的删除和拷贝-remove和copy)
     - [4.遍历路径与递归遍历 os::recursive\_directory\_entry 和 directory\_entry](#4遍历路径与递归遍历-osrecursive_directory_entry-和-directory_entry)
     - [5.重命名与移动 os::rename](#5重命名与移动-osrename)
+  - [Chapter5 （并行与并发）](#Chapter5 并发与并行)
 
 # 现代C++快速入门 | C++11/14/17/20
 
@@ -894,3 +895,4 @@ catch (exception& E) {
 
 ## Chapter5 并发与并行
 
+>   有需要的请去看 [C++ Concurrency In Action - 《C++并发编程(第二版)（C++ Concurrency In Action - 2nd edition）》 - 书栈网 · BookStack](https://www.bookstack.cn/read/xiaoweiChen-CPP-Concurrency-In-Action-2ed-2019/README.md) 这里不再进行整理
