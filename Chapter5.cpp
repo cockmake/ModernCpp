@@ -9,7 +9,7 @@
 #include <shared_mutex>
 #include<condition_variable>
 #include<future>
-
+#include<vector>
 using namespace std;
 class P {
 public:
@@ -51,8 +51,54 @@ void exec() {
         }
     }, 1);
 }
+class AAA{
+public:
+    int a;
+    AAA() : a(0) {};
+    AAA(int _a) {
+        a = _a;
+    }
+};
+class T {
+public:
+    int p = 0;
+    vector<AAA> arr;
+    T() {
+        arr.push_back(AAA(1));
+        cout << "T构造函数" << endl;
+        cout << "T.p：" << &p << endl;
+        cout << "T.arr[0]：" << &arr[0] << endl;
+        cout << "T.arr：" << &arr << endl;
+    }
+    T(const T& t) {
+        cout << "T拷贝构造函数" << endl;
+        p = t.p;
+        arr = t.arr;
+    }
+    //T(T&& t) noexcept : arr(move(t.arr))  {
+    //    cout << "T移动构造函数" << endl;
+    //    p = move(t.p);
+    //}
+    ~T() {
+        cout << "T我被销毁了" << endl;
+    }
+};
+
+T getT(bool flag) {
+    T tt, tt2;
+    tt.p = 1;
+    tt2.p = 2;
+    if (flag)  return tt;
+    else return tt2;
+}
 int main() {
-    //cout << this_thread::get_id() << endl;
+    bool flag = true;
+    T&& tt = getT(flag);
+    cout << "T.p：" << &tt.p << endl;
+    cout << "T.arr[0]：" << &tt.arr[0] << endl;
+    cout << "T.arr：" << &tt.arr << endl;
+    cout << tt.arr[0].a << endl;
+    //cout << this_thread::get_id() << endl; 
     ////获取可以并行执行的线程数量
     //cout << thread::hardware_concurrency() << endl;
     //P p;
@@ -175,10 +221,10 @@ int main() {
     
     //C++20引入了jthread是一个RAII设计的类
     //并可以被外部请求停止
-    exec();
-    this_thread::sleep_for(chrono::milliseconds(2000));
-    cout << "——————" << endl;
-    t.request_stop();
+    //exec();
+    //this_thread::sleep_for(chrono::milliseconds(2000));
+    //cout << "——————" << endl;
+    //t.request_stop();
     //cout << "是否可以停止："<< t.request_stop() << endl;
     return 0;
 }

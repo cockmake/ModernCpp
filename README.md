@@ -438,6 +438,77 @@ int main(){
 
 ***由此也可以看出移动构造对内置基本变量类型没有作用，比较使用占用内存较多的资源***
 
+```C++
+class AAA{
+public:
+    int a;
+    AAA() : a(0) {};
+    AAA(int _a) {
+        a = _a;
+    }
+};
+class T {
+public:
+    int p = 0;
+    vector<AAA> arr;
+    T() {
+        arr.push_back(AAA(1));
+        cout << "T构造函数" << endl;
+        cout << "T.p：" << &p << endl;
+        cout << "T.arr[0]：" << &arr[0] << endl;
+        cout << "T.arr：" << &arr << endl;
+    }
+    T(const T& t) {
+        cout << "T拷贝构造函数" << endl;
+        p = t.p;
+        arr = t.arr;
+    }
+    //T(T&& t) noexcept : arr(move(t.arr))  {
+    //    cout << "T移动构造函数" << endl;
+    //    p = move(t.p);
+    //}
+    ~T() {
+        cout << "T我被销毁了" << endl;
+    }
+};
+
+T getT(bool flag) {
+    T tt, tt2;
+    tt.p = 1;
+    tt2.p = 2;
+    if (flag)  return tt;
+    else return tt2;
+}
+int main() {
+    bool flag = true;
+    T&& tt = getT(flag);  //返回的是一个右值，如果T类型的移动构造没有实现的话带有&&也是无效的
+    cout << "T.p：" << &tt.p << endl;
+    cout << "T.arr[0]：" << &tt.arr[0] << endl;
+    cout << "T.arr：" << &tt.arr << endl;
+    cout << tt.arr[0].a << endl;
+    return 0;
+}
+```
+
+>   输出结果：
+>
+>   T构造函数
+>   T.p：00000015160FF9F8
+>   T.arr[0]：0000018777AD9110  X
+>   T.arr：00000015160FFA00  √ 指针的指针（个人理解）
+>   //T构造函数
+>   //T.p：00000015160FFA38
+>   //T.arr[0]：0000018777AD8B50
+>   //T.arr：00000015160FFA40
+>   T拷贝构造函数
+>   T我被销毁了
+>   //T我被销毁了
+>   T.p：00000015160FFBD8
+>   T.arr[0]：0000018777AD9350  X
+>   T.arr：00000015160FFBE0  √指针的指针
+>   1
+>   T我被销毁了
+
 ### 6.再次体验一些右值资源的"迁移"，个人感觉"转手"形容更为贴切
 
 ```C++
