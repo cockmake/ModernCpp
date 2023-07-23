@@ -178,9 +178,7 @@ int main() {
     //并可以被外部请求停止
     exec();
     this_thread::sleep_for(chrono::milliseconds(2000));
-    
     cout << "——————" << endl;
-    cout << t.get_stop_source() << endl;
     t.request_stop();
     //cout << "是否可以停止："<< t.request_stop() << endl;
     return 0;
