@@ -31,6 +31,7 @@
     - [2.查看和切换当前目录，创建一层或多层目录 os::current\_path() 和 os::create\_directories()](#2查看和切换当前目录创建一层或多层目录-oscurrent_path-和-oscreate_directories)
     - [3.文件以及文件夹的删除和拷贝 remove()和copy()](#3文件以及文件夹的删除和拷贝-remove和copy)
     - [4.遍历路径与递归遍历 os::recursive\_directory\_entry 和 directory\_entry](#4遍历路径与递归遍历-osrecursive_directory_entry-和-directory_entry)
+    - [C++20中支持stirng::ends_with和starts_with](#4遍历路径与递归遍历-osrecursive_directory_entry-和-directory_entry)
     - [5.重命名与移动 os::rename](#5重命名与移动-osrename)
   - [Chapter5 并行与并发](#chapter5-并发与并行)
 
